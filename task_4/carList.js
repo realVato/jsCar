@@ -50,8 +50,6 @@ fetch(url)
     document.querySelector(".row").innerHTML = output;
 });
 
-
-
 // Create a unique ID
 function uniqueID() {
     return Math.random().toString(36).substr(2, 9);
