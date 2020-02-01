@@ -1,34 +1,35 @@
 const url = "https://backend.daviva.lt/API/InformacijaTestui";
 
 // Show 1st item on page load
-fetch(url)
-.then(res => res.json())
-.then(data => {
-    // An array that consists of .carousel-item divs to the amount of images in api
-    const carouselItem = [];
+(function() {
+    fetch(url)
+    .then(res => res.json())
+    .then(data => {
+        // An array that consists of .carousel-item divs to the amount of images in api
+        const carouselItem = [];
 
-    // Function that adds .carousel-item divs to the amount of images in api
-    function imgID(data) { // Parameter depending on 2nd then() in each fetch()
-        for(i = 0; i < data.nuotraukos.length; i++) {
-            if(i === 0) { // Adds .active to a 1st element in an array
-                carouselItem.push(
-                    `
-                        <div class="carousel-item active">
-                            <img src="${data.nuotraukos[i]}" class="img-fluid rounded">
-                        </div>
-                    `
-                );
-            } else { // Elements without .active
-                carouselItem.push(
-                    `
-                        <div class="carousel-item">
-                            <img src="${data.nuotraukos[i]}" class="img-fluid rounded">
-                        </div>
-                    `
-                );
+        // Function that adds .carousel-item divs to the amount of images in api
+        function imgID(data) { // Parameter depending on 2nd then() in each fetch()
+            for(i = 0; i < data.nuotraukos.length; i++) {
+                if(i === 0) { // Adds .active to a 1st element in an array
+                    carouselItem.push(
+                        `
+                            <div class="carousel-item active">
+                                <img src="${data.nuotraukos[i]}" class="img-fluid rounded">
+                            </div>
+                        `
+                    );
+                } else { // Elements without .active
+                    carouselItem.push(
+                        `
+                            <div class="carousel-item">
+                                <img src="${data.nuotraukos[i]}" class="img-fluid rounded">
+                            </div>
+                        `
+                    );
+                }
             }
         }
-    }
 
     // init
     imgID(data);
@@ -64,6 +65,7 @@ fetch(url)
             
     document.querySelector(".row").innerHTML = output;
 });
+})();
 
 // Create a unique ID
 function uniqueID() {
@@ -102,7 +104,7 @@ function getCar() {
         }
 
         // init
-        imgID1(data)
+        imgID1(data);
 
         // Unique ID for each different carousel on a single page
         id = uniqueID();
@@ -137,7 +139,7 @@ function getCar() {
                 `;
 
         document.querySelector(".row").innerHTML += output;
-    })
+    });
 };
 
 // Get btn
