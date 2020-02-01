@@ -4,6 +4,34 @@ const url = "https://backend.daviva.lt/API/InformacijaTestui";
 fetch(url)
 .then(res => res.json())
 .then(data => {
+    // An array that consists of .carousel-item divs to the amount of images in api
+    const carouselItem = [];
+
+    // Function that adds .carousel-item divs to the amount of images in api
+    function imgID(data) { // Parameter depending on 2nd then() in each fetch()
+        for(i = 0; i < data.nuotraukos.length; i++) {
+            if(i === 0) { // Adds .active to a 1st element in an array
+                carouselItem.push(
+                    `
+                        <div class="carousel-item active">
+                            <img src="${data.nuotraukos[i]}" class="img-fluid rounded">
+                        </div>
+                    `
+                );
+            } else { // Elements without .active
+                carouselItem.push(
+                    `
+                        <div class="carousel-item">
+                            <img src="${data.nuotraukos[i]}" class="img-fluid rounded">
+                        </div>
+                    `
+                );
+            }
+        }
+    }
+
+    // init
+    imgID(data);
 
     output = 
             `   
@@ -11,21 +39,7 @@ fetch(url)
                     <div>
                         <div id="carouselCtrl" class="carousel slide" data-ride="carousel" data-interval="false">
                             <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="${data.nuotraukos[0]}" class="img-fluid rounded">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="${data.nuotraukos[1]}" class="img-fluid rounded">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="${data.nuotraukos[2]}" class="img-fluid rounded">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="${data.nuotraukos[3]}" class="img-fluid rounded">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="${data.nuotraukos[4]}" class="img-fluid rounded">
-                                </div>
+                                ${carouselItem}
                             </div>
                             <a class="carousel-control-prev" href="#carouselCtrl" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -47,6 +61,7 @@ fetch(url)
                     </div>
                 </div>
             `;
+            
     document.querySelector(".row").innerHTML = output;
 });
 
@@ -60,30 +75,45 @@ function getCar() {
     fetch(url)
     .then(res => res.json())
     .then(data => {
+        // An array that consists of .carousel-item divs to the amount of images in api
+        const carouselItem1 = [];
+
+        // Function that adds .carousel-item divs to the amount of images in api
+        function imgID1(data) { // Parameter depending on 2nd then() in each fetch()
+            for(i = 0; i < data.nuotraukos.length; i++) {
+                if(i === 0) { // Adds .active to a 1st element in an array
+                    carouselItem1.push(
+                        `
+                            <div class="carousel-item active">
+                                <img src="${data.nuotraukos[i]}" class="img-fluid rounded">
+                            </div>
+                        `
+                    );
+                } else { // Elements without .active
+                    carouselItem1.push(
+                        `
+                            <div class="carousel-item">
+                                <img src="${data.nuotraukos[i]}" class="img-fluid rounded">
+                            </div>
+                        `
+                    );
+                }
+            }
+        }
+
+        // init
+        imgID1(data)
+
         // Unique ID for each different carousel on a single page
         id = uniqueID();
-        
+
         output = 
                 `   
                     <div class="col mb-2">
                         <div>
                             <div id="carouselCtrl${id}" class="carousel slide" data-ride="carousel" data-interval="false">
                                 <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img src="${data.nuotraukos[0]}" class="img-fluid rounded">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="${data.nuotraukos[1]}" class="img-fluid rounded">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="${data.nuotraukos[2]}" class="img-fluid rounded">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="${data.nuotraukos[3]}" class="img-fluid rounded">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="${data.nuotraukos[4]}" class="img-fluid rounded">
-                                    </div>
+                                    ${carouselItem1}
                                 </div>
                                 <a class="carousel-control-prev" href="#carouselCtrl${id}" role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
